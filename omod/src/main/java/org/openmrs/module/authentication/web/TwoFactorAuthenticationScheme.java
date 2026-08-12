@@ -334,10 +334,6 @@ public class TwoFactorAuthenticationScheme extends WebAuthenticationScheme {
 		}
 	}
 
-	public void setSecondaryAuthenticationSchemeIdsForUser(User user, List<String> schemeIds) {
-		user.setUserProperty(USER_PROPERTY_SECONDARY_TYPE, String.join(",", schemeIds));
-	}
-
 	/**
 	 * @return the primary authentication scheme options configured
 	 */
