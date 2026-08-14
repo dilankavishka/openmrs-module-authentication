@@ -34,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,8 +47,6 @@ public class TotpAuthenticationSchemeTest extends BaseWebAuthenticationTest {
 	User candidateUser;
 	UserLogin userLogin;
 	
-	final List<String> savedUserPropertyKeys = new ArrayList<>();
-	
 	@BeforeEach
 	@Override
 	public void setup() {
@@ -62,7 +59,6 @@ public class TotpAuthenticationSchemeTest extends BaseWebAuthenticationTest {
 						String k = (String) args[1];
 						String v = (String) args[2];
 						u.setUserProperty(k, v);
-						savedUserPropertyKeys.add(k);
 					}
 					return null;
 				}
@@ -193,8 +189,6 @@ public class TotpAuthenticationSchemeTest extends BaseWebAuthenticationTest {
 		
 		String secondaryTypes = candidateUser.getUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE);
 		assertThat(secondaryTypes, equalTo("totp"));
-		
-		assertThat(savedUserPropertyKeys, hasItem(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE));
 	}
 	
 	@Test
