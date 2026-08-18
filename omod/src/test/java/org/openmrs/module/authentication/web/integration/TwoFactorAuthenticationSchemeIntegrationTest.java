@@ -52,6 +52,8 @@ public class TwoFactorAuthenticationSchemeIntegrationTest extends BaseModuleWebC
 		@DisplayName("should save the scheme to the database")
 		void shouldSaveSchemeToDatabase() {
 			User user = Context.getUserService().getUser(1);
+			user.getUserProperties().size();
+			Context.evictFromSession(user);
 			
 			scheme.addSecondaryAuthenticationSchemeForUser(user, "totp");
 			
