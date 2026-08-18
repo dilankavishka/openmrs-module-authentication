@@ -44,7 +44,7 @@ public class TotpAuthenticationSchemeTest extends BaseWebAuthenticationTest {
 	MockTotpAuthenticationScheme authenticationScheme;
 	User candidateUser;
 	UserLogin userLogin;
-	
+
 	@BeforeEach
 	@Override
 	public void setup() {
