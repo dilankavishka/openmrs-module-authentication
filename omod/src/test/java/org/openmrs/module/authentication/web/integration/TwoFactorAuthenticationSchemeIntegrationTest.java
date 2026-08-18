@@ -8,11 +8,26 @@ import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
 import org.openmrs.web.test.jupiter.BaseModuleWebContextSensitiveTest;
+import org.junit.jupiter.api.BeforeAll;
+import org.openmrs.api.context.UsernamePasswordAuthenticationScheme;
+import org.openmrs.module.authentication.AuthenticationConfig;
+
+import java.util.Properties;
+import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoFactorAuthenticationSchemeIntegrationTest extends BaseModuleWebContextSensitiveTest {
 	
+	@BeforeAll
+	static void resetAuthenticationScheme() throws Exception {
+		AuthenticationConfig.setConfig(new Properties());
+		Field field = Context.class.getDeclaredField("authenticationScheme");
+		field.setAccessible(true);
+		field.set(null, new UsernamePasswordAuthenticationScheme());
+		Context.clearUserContext();
+	}
+
 	private TwoFactorAuthenticationScheme scheme;
 	
 	@BeforeEach
