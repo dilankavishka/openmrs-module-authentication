@@ -28,7 +28,17 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TwoFactorAuthenticationSchemeIntegrationTest extends BaseModuleWebContextSensitiveTest {
-	
+
+/**
+ * Currently, BaseAuthenticationTest sets an AuthenticationConfig in the global Context but never
+ * cleans it up (test pollution). When this integration test runs afterwards, that leftover
+ * configuration causes OpenMRS to attempt to open a Swing UI credentials dialog. On a server
+ * without a display (like our CI pipelines), this crashes the build with a confusing java.awt.HeadlessException.
+ * This block resets the Context so this test can run safely.
+ *
+ * TODO: Move this logic into BaseAuthenticationTest.teardown() so it automatically protects all future
+ * context-sensitive tests without needing to copy-paste this block.
+ */
 	@BeforeAll
 	static void resetAuthenticationScheme() throws Exception {
 		AuthenticationConfig.setConfig(new Properties());
