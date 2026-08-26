@@ -330,12 +330,12 @@ public class TwoFactorAuthenticationScheme extends WebAuthenticationScheme {
 		List<String> schemeIds = getSecondaryAuthenticationSchemeIdsForUser(user);
 		if (!schemeIds.contains(schemeId)) {
 			schemeIds.add(schemeId);
-			user.setUserProperty(USER_PROPERTY_SECONDARY_TYPE, String.join(",", schemeIds));
+			Context.getUserService().setUserProperty(user, USER_PROPERTY_SECONDARY_TYPE, String.join(",", schemeIds));
 		}
 	}
 
 	public void setSecondaryAuthenticationSchemeIdsForUser(User user, List<String> schemeIds) {
-		user.setUserProperty(USER_PROPERTY_SECONDARY_TYPE, String.join(",", schemeIds));
+		Context.getUserService().setUserProperty(user, USER_PROPERTY_SECONDARY_TYPE, String.join(",", schemeIds));
 	}
 
 	/**

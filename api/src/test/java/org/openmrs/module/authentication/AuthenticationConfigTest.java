@@ -140,4 +140,16 @@ public class AuthenticationConfigTest extends BaseAuthenticationTest {
 		assertThat(scheme.getClass(), equalTo(TestAuthenticationScheme.class));
 		assertThat(((TestAuthenticationScheme)scheme).getSchemeId(), equalTo("test2"));
 	}
+
+	@Test
+	public void shouldReloadConfigFromRuntimeProperties() {
+		Properties p = new Properties();
+		p.setProperty(SCHEME, "basic");
+		p.setProperty("some.unrelated.property", "ignored");
+		setRuntimeProperties(p);
+		AuthenticationConfig.setConfig(new Properties());
+		AuthenticationConfig.reloadConfigFromRuntimeProperties("openmrs");
+		assertThat(AuthenticationConfig.getProperty(SCHEME), equalTo("basic"));
+		assertThat(AuthenticationConfig.getKeys().contains("some.unrelated.property"), equalTo(false));
+	}
 }

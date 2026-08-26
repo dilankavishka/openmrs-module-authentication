@@ -68,7 +68,7 @@ public abstract class BaseAuthenticationTest {
 		p.setProperty(OpenmrsConstants.APPLICATION_DATA_DIRECTORY_RUNTIME_PROPERTY, appDataDir.getAbsolutePath());
 		OpenmrsUtil.storeProperties(p, runtimePropertiesFile, "test");
 		Context.setRuntimeProperties(p);
-		AuthenticationConfig.reloadConfigFromRuntimeProperties("openmrs");
+		AuthenticationConfig.setConfig(AuthenticationUtil.getPropertiesWithPrefix(p, AuthenticationConfig.PREFIX, false));
 		setAuthenticationSchemeOnContext();
 	}
 
